@@ -151,6 +151,20 @@
         alert("Please select a payment method.");
         return false;
       }
+      sessionStorage.setItem("customerName", document.getElementById("name").value.trim());
+      sessionStorage.setItem("phone", phone);
+      sessionStorage.setItem("pincode", pincode);
+      sessionStorage.setItem("area", city);
+      sessionStorage.setItem("address", street);
+      sessionStorage.setItem("paymentMethod", paymentSelected.value);
+
+      const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+      const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+      const totalAmount = cartItems.reduce((sum, item) => sum + item.amount * item.quantity, 0);
+
+      sessionStorage.setItem("totalItems", totalItems);
+      sessionStorage.setItem("totalAmount", totalAmount);
+      sessionStorage.setItem("orderedItems", JSON.stringify(cartItems));
       setTimeout(() => {
         alert("Your order has been placed successfully!");
         window.location.href = "thankyou.html";
